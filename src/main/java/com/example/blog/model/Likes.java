@@ -4,11 +4,10 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name ="like")
-public class Like {
+@Table(name ="likes")
+public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
     @ManyToOne
@@ -19,10 +18,10 @@ public class Like {
 
     private LocalDateTime dateTime;
 
-    public Like() {
+    public Likes() {
     }
 
-    public Like(Long id, User user, Post post, LocalDateTime dateTime) {
+    public Likes(Long id, User user, Post post, LocalDateTime dateTime) {
         this.id = id;
         this.user = user;
         this.post = post;
