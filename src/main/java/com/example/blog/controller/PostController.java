@@ -2,6 +2,7 @@ package com.example.blog.controller;
 
 import com.example.blog.model.Post;
 import com.example.blog.service.PostService;
+import com.example.blog.service.impl.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class PostController {
 
     @Autowired
-    private PostService postService;
+    private PostServiceImpl postService;
 
     @GetMapping("")
     public ResponseEntity<Iterable<Post>> showAllPost() {
@@ -29,7 +30,7 @@ public class PostController {
         postService.save(post);
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Post> update(@PathVariable Long id, @RequestBody Post post) {
         Optional<Post> post1 = postService.findById(id);
         if (!post1.isPresent()) {
@@ -40,10 +41,10 @@ public class PostController {
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
     @GetMapping("/user/{id}")
-    public ResponseEntity<Page<Post>> findAllById(Pageable pageable) {
-        return new ResponseEntity<>(postService.findAllById(pageable), HttpStatus.OK);
+    public ResponseEntity<Page<Post>> findAllById(Pageable pageable, @PathVariable Long id) {
+        return new ResponseEntity<>(postService.findAllById(pageable, id), HttpStatus.OK);
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Post> delete(@PathVariable Long id){
         postService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);

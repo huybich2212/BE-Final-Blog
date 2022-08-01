@@ -10,8 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query(value = "SELECT * FROM post WHERE id = ?", nativeQuery = true)
-    Page<Post> findAllById( Pageable pageable);
-//    Page<Post> findAllByLabel_Id(Long id, Pageable pageable);
+//    @Query(value = "SELECT * FROM post WHERE id = ?", nativeQuery = true)
+//    Page<Post> findAllById( Pageable pageable);
+////    Page<Post> findAllByLabel_Id(Long id, Pageable pageable);
+
+    Page<Post> findAllById(Long id);
 }
 

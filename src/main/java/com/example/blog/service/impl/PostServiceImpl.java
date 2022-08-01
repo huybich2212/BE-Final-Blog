@@ -42,7 +42,16 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<Post> findAllById(Pageable pageable) {
-        return postRepository.findAllById(pageable);
+        return null;
+    }
+
+    @Override
+    public Page<Post> findAllById(Pageable pageable, Long id) {
+        return postRepository.findAllById(id);
+    }
+
+    public Page<Post> findAllById( Long id) {
+        return postRepository.findAllById(id);
     }
 }
 
