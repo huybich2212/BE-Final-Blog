@@ -49,4 +49,5 @@ public class LabelController {
         labelService.save(label);
         return new ResponseEntity<>(label,HttpStatus.CREATED);
     }
+
 }
