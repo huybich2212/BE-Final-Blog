@@ -20,7 +20,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT * FROM post WHERE status = 1", nativeQuery = true)
     Iterable<Post> findAllByStatus();
 
-    Iterable<Post> findPostByTitleContaining(String title);
+    Iterable<Post> findByTitleContaining(String title);
 
 
 }

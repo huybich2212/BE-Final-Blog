@@ -48,8 +48,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Iterable<Post> findAllByTitleContaining(String title) {
-        return postRepository.findPostByTitleContaining(title);
+    public Iterable<Post>findByTitleContaining(String title) {
+        System.out.println("content:  "+title);
+        return postRepository.findByTitleContaining(title);
     }
 
 
