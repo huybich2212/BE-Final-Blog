@@ -13,14 +13,15 @@ import java.util.Optional;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query(value = "SELECT * FROM post WHERE id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM post WHERE user_id = :id", nativeQuery = true)
     Iterable<Post> findAllById(@Param("id") Long id);
-
     @Override
     Optional<Post> findById(Long id);
     @Query(value = "SELECT * FROM post WHERE status = 1", nativeQuery = true)
     Iterable<Post> findAllByStatus();
-    @Query(value = "SELECT * FROM post WHERE title like %:title", nativeQuery = true)
-    Iterable<Post> findAllByTitleContaining(@Param("title") String title);
+
+    Iterable<Post> findPostByTitleContaining(String title);
+
+
 }
 
