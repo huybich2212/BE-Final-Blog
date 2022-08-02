@@ -6,11 +6,11 @@ import com.example.blog.service.impl.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -21,13 +21,15 @@ public class PostController {
     @Autowired
     private PostServiceImpl postService;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<Iterable<Post>> showAllPost() {
         Iterable<Post> posts = postService.findAll();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
-    @PostMapping("add")
+    @PostMapping("")
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
+        LocalDateTime now = LocalDateTime.now();
+        post.setCreateAt(now);
         postService.save(post);
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
