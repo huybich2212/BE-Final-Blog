@@ -6,6 +6,7 @@ import com.example.blog.service.impl.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +21,12 @@ public class PostController {
     @Autowired
     private PostServiceImpl postService;
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<Iterable<Post>> showAllPost() {
         Iterable<Post> posts = postService.findAll();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
-    @PostMapping("")
+    @PostMapping("add")
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
         postService.save(post);
         return new ResponseEntity<>(post, HttpStatus.CREATED);
@@ -40,10 +41,10 @@ public class PostController {
         postService.save(post);
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
-    @GetMapping("/user/{id}")
-    public ResponseEntity<Page<Post>> findAllById(Pageable pageable, @PathVariable Long id) {
-        return new ResponseEntity<>(postService.findAllById(pageable, id), HttpStatus.OK);
-    }
+//    @GetMapping("/user/{id}")
+//    public ResponseEntity<Page<Post>> findAllById(@PageableDefault(value = 4) Pageable pageable) {
+//        return new ResponseEntity<>(postService.findAllById(pageable), HttpStatus.OK);
+//    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Post> delete(@PathVariable Long id){
         postService.remove(id);
@@ -53,5 +54,8 @@ public class PostController {
     public ResponseEntity<Optional<Post>>findById(@PathVariable Long id) {
         return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
     }
-
+    @GetMapping("/status/{status}")
+    public ResponseEntity<Page<Post>>findAllByStatus(@PageableDefault(value = 4) Pageable pageable) {
+        return new ResponseEntity<Page<Post>>(postService.findAllByStatus(pageable),HttpStatus.OK);
+    }
 }

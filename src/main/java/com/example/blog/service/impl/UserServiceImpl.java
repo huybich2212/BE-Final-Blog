@@ -112,9 +112,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isCorrectConfirmPassword(User user) {
         boolean isCorrentConfirmPassword = false;
-//        if(user.getPassword().equals(user.getConfirmPassword())){
-//            isCorrentConfirmPassword = true;
-//        }
+        if(user.getPassword().equals(user.getConfirmPassword())){
+            isCorrentConfirmPassword = true;
+        }
         return isCorrentConfirmPassword;
     }
 }
