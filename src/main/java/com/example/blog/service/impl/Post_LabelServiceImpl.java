@@ -44,4 +44,6 @@ public class Post_LabelServiceImpl implements Post_LabelService {
         return post_LabelRepository.findAllByPostId(postId);
     }
 
+
+
 }

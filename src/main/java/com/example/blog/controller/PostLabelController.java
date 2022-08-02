@@ -20,4 +20,6 @@ public class PostLabelController {
         Iterable<Post_Label> post_Labels = post_LabelService.findAllByPostId(postId);
         return new ResponseEntity<>(post_Labels, HttpStatus.OK);
     }
+
+
 }
