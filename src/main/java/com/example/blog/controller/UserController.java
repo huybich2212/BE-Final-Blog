@@ -78,6 +78,7 @@ public class UserController {
             }
         }
         if (!userService.isCorrectConfirmPassword(user)) {
+
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (user.getRoles() != null) {

@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface PostService extends IService<Post> {
-    Page<Post> findAllById( Pageable pageable);
-    Page<Post> findAllByStatus(Pageable pageable);
+    Iterable<Post> findAllById( Long id);
+    Iterable<Post> findAllByStatus();
 }
 

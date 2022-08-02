@@ -28,10 +28,8 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String confirmPassword;
 
-//regex numberphone vietnam
 
-
-    @Pattern(regexp = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\s|\\.)?(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$", message = "Số điện thoại không hợp lệ")
+    @Pattern(regexp = "^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$", message = "Số điện thoại không đúng định dạng")
 
     private String numberPhone;
     private boolean enabled = true;
