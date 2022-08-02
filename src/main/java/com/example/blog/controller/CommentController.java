@@ -16,16 +16,22 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    // get all comments
+
     @GetMapping("/all")
     public ResponseEntity<Iterable<Comment>> showAllComment() {
         Iterable<Comment> comments = commentService.findAll();
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
+
+    // new comment
     @PostMapping("/add")
     public ResponseEntity<Comment>createComment(@RequestBody Comment comment){
         commentService.save(comment);
         return new ResponseEntity<>(comment, HttpStatus.CREATED);
     }
+
+    //update comment
     @PutMapping("/update/{id}")
     public ResponseEntity<Comment>updateCmt(@PathVariable Long id,@RequestBody Comment comment) {
         Optional<Comment> comment1 = commentService.findById(id);
@@ -36,6 +42,8 @@ public class CommentController {
         commentService.save(comment);
         return new ResponseEntity<>(comment,HttpStatus.CREATED);
     }
+
+    //delete comment
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Comment> deleteCmt(@PathVariable Long id) {
         commentService.remove(id);
