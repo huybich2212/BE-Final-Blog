@@ -16,8 +16,7 @@ public class LabelServiceImpl implements LabelService {
     @Autowired
     private LabelRepository labelRepository;
 
-    @Override
-    public Page<Label> findAll(Pageable pageable) {
+    public Iterable<Label> findAll(Pageable pageable) {
         return labelRepository.findAll(pageable);
     }
 
@@ -40,5 +39,7 @@ public class LabelServiceImpl implements LabelService {
     public void remove(Long id) {
         labelRepository.deleteById(id);
     }
+
+
 }
 

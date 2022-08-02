@@ -16,8 +16,7 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
 
 
-    @Override
-    public Page<Comment> findAll(Pageable pageable) {
+    public Iterable<Comment> findAll(Pageable pageable) {
         return commentRepository.findAll(pageable);
     }
 

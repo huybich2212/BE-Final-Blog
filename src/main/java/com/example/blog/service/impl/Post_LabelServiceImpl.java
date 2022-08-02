@@ -1,10 +1,9 @@
 package com.example.blog.service.impl;
 
 import com.example.blog.model.Post_Label;
-import com.example.blog.repository.Post_LabelRps;
+import com.example.blog.repository.Post_LabelRepository;
 import com.example.blog.service.Post_LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -14,30 +13,35 @@ import java.util.Optional;
 public class Post_LabelServiceImpl implements Post_LabelService {
 
     @Autowired
-    private Post_LabelRps post_LabelRps;
+    private Post_LabelRepository post_LabelRepository;
 
-    @Override
-    public Page<Post_Label> findAll(Pageable pageable) {
-        return post_LabelRps.findAll(pageable);
+    public Iterable<Post_Label> findAll(Pageable pageable) {
+        return post_LabelRepository.findAll(pageable);
     }
 
     @Override
     public Optional<Post_Label> findById(Long id) {
-        return post_LabelRps.findById(id);
+        return post_LabelRepository.findById(id);
     }
 
     @Override
     public Iterable<Post_Label> findAll() {
-        return post_LabelRps.findAll();
+        return post_LabelRepository.findAll();
     }
 
     @Override
     public void save(Post_Label post_label) {
-        post_LabelRps.save(post_label);
+        post_LabelRepository.save(post_label);
     }
 
     @Override
     public void remove(Long id) {
-        post_LabelRps.deleteById(id);
+        post_LabelRepository.deleteById(id);
     }
+
+    //find all by post id
+    public Iterable<Post_Label> findAllByPostId(Long postId) {
+        return post_LabelRepository.findAllByPostId(postId);
+    }
+
 }
