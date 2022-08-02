@@ -17,8 +17,7 @@ public class RateServiceImpl implements RateService {
     private RateRepository rateRepository;
 
 
-    @Override
-    public Page<Rate> findAll(Pageable pageable) {
+    public Iterable<Rate> findAll(Pageable pageable) {
         return rateRepository.findAll(pageable);
     }
 

@@ -16,8 +16,7 @@ public class LabelServiceImpl implements LabelService {
     @Autowired
     private LabelRepository labelRepository;
 
-    @Override
-    public Page<Label> findAll(Pageable pageable) {
+    public Iterable<Label> findAll(Pageable pageable) {
         return labelRepository.findAll(pageable);
     }
 
