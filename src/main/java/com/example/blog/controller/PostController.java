@@ -47,14 +47,8 @@ public class PostController {
     // delete post by id
     @DeleteMapping("/{id}")
     public ResponseEntity<Post> delete(@PathVariable Long id){
-        Optional<Post> postOptional = postService.findById(id);
-        if (!postOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        postOptional.get().setStatus(0);
-        postService.remove(postOptional.get().getId());
-        return new ResponseEntity<>(postOptional.get(), HttpStatus.NO_CONTENT);
-
+        postService.remove(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // get post by id
@@ -63,8 +57,8 @@ public class PostController {
         return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
     }
 
-    @GetMapping("/title/{title}")
-    public ResponseEntity<Iterable<Post>>findAllByTitle(@PathVariable String title) {
+    @GetMapping("/title")
+    public ResponseEntity<Iterable<Post>>findAllByTitle(@RequestParam("title") String title) {
         Iterable<Post> posts = postService.findByTitleContaining(title);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
@@ -75,14 +69,18 @@ public class PostController {
         Iterable<Post> posts = postService.findAllByStatus();
         return new ResponseEntity<>(posts,HttpStatus.OK);
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<Post>editPost(@PathVariable Long id,@RequestBody Post post) {
-        Optional<Post> post1 = postService.findById(id);
-        if (!post1.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        post.setId(post1.get().getId());
-        postService.save(post);
-        return new ResponseEntity<>(post,HttpStatus.CREATED);
+
+    //FIND ALL POST BY USER ID AND TITLE
+    @GetMapping("/user/{id}/title/{title}")
+    public ResponseEntity<Iterable<Post>> findAllByUserIdAndTitle(@PathVariable(value = "id") Long id, @PathVariable(value = "title") String title) {
+        Iterable<Post> posts = postService.findAllByUserIdAndTitle(title,id );
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    //find all post with label id and user id
+    @GetMapping("/label/{id}/user/{userId}")
+    public ResponseEntity<Iterable<Post>> findAllByLabelIdAndUserId(@PathVariable(value = "id") Long id, @PathVariable(value = "userId") Long userId) {
+        Iterable<Post> posts = postService.findAllByLabelIdAndUserId(id,userId);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 }

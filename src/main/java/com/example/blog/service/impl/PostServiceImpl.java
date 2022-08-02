@@ -47,10 +47,20 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllByStatus();
     }
 
-    @Override
+
     public Iterable<Post>findByTitleContaining(String title) {
         System.out.println("content:  "+title);
         return postRepository.findByTitleContaining(title);
+    }
+
+    //FIND ALL POST BY USER ID AND TITLE
+    public Iterable<Post> findAllByUserIdAndTitle(String title,Long userId) {
+        return postRepository.findAllByTitleAndUserId(title,userId);
+    }
+
+    //find all by label id and user id
+    public Iterable<Post> findAllByLabelIdAndUserId(Long labelId,Long userId) {
+        return postRepository.findAllByLabelIdAndUserId(labelId,userId);
     }
 
 

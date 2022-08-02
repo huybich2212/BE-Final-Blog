@@ -5,5 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
+    //find all comment with post id
+    Iterable<Comment> findAllByPostId(Long postId);
+
 }
 
