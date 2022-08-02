@@ -13,9 +13,8 @@ import java.util.Optional;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query(value = "SELECT * FROM post WHERE id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM post WHERE user_id = :id", nativeQuery = true)
     Iterable<Post> findAllById(@Param("id") Long id);
-
     @Override
     Optional<Post> findById(Long id);
     @Query(value = "SELECT * FROM post WHERE status = 1", nativeQuery = true)
@@ -32,6 +31,9 @@ Iterable<Post> findAllByTitleContainingAndUserId(String title, Long userId);
             "join label l on l.id = pl.label_id\n" +
             "where l.id = :labelId and post.user_id = :userId\n", nativeQuery = true)
     Iterable<Post> findAllByLabelIdAndUserId(@Param("labelId") Long labelId, @Param("userId") Long userId);
+
+    Iterable<Post> findByTitleContaining(String title);
+
 
 }
 

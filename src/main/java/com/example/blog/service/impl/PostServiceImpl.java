@@ -1,7 +1,6 @@
 package com.example.blog.service.impl;
 
 import com.example.blog.model.Post;
-import com.example.blog.model.Post_Label;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +45,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public Iterable<Post> findAllByStatus() {
         return postRepository.findAllByStatus();
+    }
+
+
+    public Iterable<Post>findByTitleContaining(String title) {
+        System.out.println("content:  "+title);
+        return postRepository.findByTitleContaining(title);
     }
 
     //FIND ALL POST BY USER ID AND TITLE

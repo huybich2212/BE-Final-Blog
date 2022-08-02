@@ -57,7 +57,13 @@ public class PostController {
         return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
     }
 
+    @GetMapping("/title")
+    public ResponseEntity<Iterable<Post>>findAllByTitle(@RequestParam("title") String title) {
+        Iterable<Post> posts = postService.findByTitleContaining(title);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
     // find all post by status(public or private)
+
     @GetMapping("/status/{status}")
     public ResponseEntity<Iterable<Post>>findAllByStatus() {
         Iterable<Post> posts = postService.findAllByStatus();
