@@ -39,5 +39,10 @@ public class CommentServiceImpl implements CommentService {
     public void remove(Long id) {
         commentRepository.deleteById(id);
     }
+
+    //find all comment by post id
+    public Iterable<Comment> findAllByPostId(Long postId) {
+        return commentRepository.findAllByPostId(postId);
+    }
 }
 
