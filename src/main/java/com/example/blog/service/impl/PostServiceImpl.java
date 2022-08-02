@@ -16,8 +16,8 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
 
     @Override
-    public Page<Post> findAll(Pageable pageable) {
-        return postRepository.findAll(pageable);
+    public Iterable<Post> findAll() {
+        return postRepository.findAll();
     }
 
     @Override
@@ -25,10 +25,7 @@ public class PostServiceImpl implements PostService {
         return postRepository.findById(id);
     }
 
-    @Override
-    public Iterable<Post> findAll() {
-        return postRepository.findAll();
-    }
+
 
     @Override
     public void save(Post post) {
