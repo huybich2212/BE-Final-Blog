@@ -57,6 +57,7 @@ public class PostController {
     public ResponseEntity<Optional<Post>>findById(@PathVariable Long id) {
         return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
     }
+
     @GetMapping("/status/{status}")
     public ResponseEntity<Iterable<Post>>findAllByStatus() {
         Iterable<Post> posts = postService.findAllByStatus();
