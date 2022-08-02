@@ -30,7 +30,7 @@ public class User implements Serializable {
 
 
     @Pattern(regexp = "^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$", message = "Số điện thoại không đúng định dạng")
-    @Column(nullable = false)
+
     private String numberPhone;
     private boolean enabled = true;
 
