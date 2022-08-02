@@ -25,6 +25,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT * FROM post WHERE title LIKE %:name% AND user_id = :userId", nativeQuery = true)
     Iterable<Post> findAllByTitleAndUserId(@Param("name") String title, @Param("userId") Long userId);
 
+Iterable<Post> findAllByTitleContainingAndUserId(String title, Long userId);
 
+    //find all post by name containing and user id
 }
 
