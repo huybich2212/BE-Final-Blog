@@ -47,6 +47,11 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllByStatus();
     }
 
+    @Override
+    public Iterable<Post> findAllByTitle(String title) {
+        return postRepository.findAllByTitleContaining(title);
+    }
+
 
 }
 
