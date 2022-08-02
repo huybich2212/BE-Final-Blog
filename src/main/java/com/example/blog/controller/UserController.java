@@ -80,6 +80,7 @@ public class UserController {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
+        user.setAvatar("https://imgt.taimienphi.vn/cf/Images/np/2020/1/3/top-anh-dai-dien-dep-chat-4.jpg");
         if (!userService.isCorrectConfirmPassword(user)) {
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
