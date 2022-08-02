@@ -41,10 +41,11 @@ public class PostController {
         postService.save(post);
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
-//    @GetMapping("/user/{id}")
-//    public ResponseEntity<Page<Post>> findAllById(@PageableDefault(value = 4) Pageable pageable) {
-//        return new ResponseEntity<>(postService.findAllById(pageable), HttpStatus.OK);
-//    }
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Iterable<Post>> findAllById(@PathVariable(value = "id") Long id) {
+        Iterable<Post> posts = postService.findAllById(id);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Post> delete(@PathVariable Long id){
         postService.remove(id);
@@ -55,7 +56,8 @@ public class PostController {
         return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
     }
     @GetMapping("/status/{status}")
-    public ResponseEntity<Page<Post>>findAllByStatus(@PageableDefault(value = 4) Pageable pageable) {
-        return new ResponseEntity<Page<Post>>(postService.findAllByStatus(pageable),HttpStatus.OK);
+    public ResponseEntity<Iterable<Post>>findAllByStatus() {
+        Iterable<Post> posts = postService.findAllByStatus();
+        return new ResponseEntity<>(posts,HttpStatus.OK);
     }
 }
