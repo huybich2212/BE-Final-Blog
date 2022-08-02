@@ -17,7 +17,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Iterable<Post> findAllById(@Param("id") Long id);
 
     @Override
-    Optional<Post> findById(Long aLong);
+    Optional<Post> findById(Long id);
     @Query(value = "SELECT * FROM post WHERE status = 1", nativeQuery = true)
     Iterable<Post> findAllByStatus();
 
