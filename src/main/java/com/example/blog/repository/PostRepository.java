@@ -21,5 +21,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT * FROM post WHERE status = 1", nativeQuery = true)
     Iterable<Post> findAllByStatus();
 
+    //find all post by name containing and user id
+    @Query(value = "SELECT * FROM post WHERE title LIKE %:name% AND user_id = :userId", nativeQuery = true)
+    Iterable<Post> findAllByTitleAndUserId(@Param("name") String title, @Param("userId") Long userId);
+
+
 }
 

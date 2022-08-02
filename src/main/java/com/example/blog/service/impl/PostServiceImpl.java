@@ -47,6 +47,10 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllByStatus();
     }
 
+    //FIND ALL POST BY USER ID AND TITLE
+    public Iterable<Post> findAllByUserIdAndTitle(String title,Long userId) {
+        return postRepository.findAllByTitleAndUserId(title,userId);
+    }
 
 }
 

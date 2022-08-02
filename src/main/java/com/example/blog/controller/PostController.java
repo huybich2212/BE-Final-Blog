@@ -63,4 +63,11 @@ public class PostController {
         Iterable<Post> posts = postService.findAllByStatus();
         return new ResponseEntity<>(posts,HttpStatus.OK);
     }
+
+    //FIND ALL POST BY USER ID AND TITLE
+    @GetMapping("/user/{id}/title/{title}")
+    public ResponseEntity<Iterable<Post>> findAllByUserIdAndTitle(@PathVariable(value = "id") Long id, @PathVariable(value = "title") String title) {
+        Iterable<Post> posts = postService.findAllByUserIdAndTitle(title,id );
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
 }
