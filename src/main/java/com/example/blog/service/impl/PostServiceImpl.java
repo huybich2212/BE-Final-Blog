@@ -6,6 +6,7 @@ import com.example.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -44,5 +45,6 @@ public class PostServiceImpl implements PostService {
     public Page<Post> findAllById(Pageable pageable) {
         return postRepository.findAllById(pageable);
     }
+
 }
 

@@ -2,13 +2,16 @@ package com.example.blog.controller;
 
 import com.example.blog.model.Post;
 import com.example.blog.service.PostService;
+import com.example.blog.service.impl.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -17,7 +20,7 @@ import java.util.Optional;
 public class PostController {
 
     @Autowired
-    private PostService postService;
+    private PostServiceImpl postService;
 
     @GetMapping("")
     public ResponseEntity<Iterable<Post>> showAllPost() {
@@ -26,6 +29,8 @@ public class PostController {
     }
     @PostMapping("")
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
+        LocalDateTime now = LocalDateTime.now();
+        post.setCreateAt(now);
         postService.save(post);
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
@@ -52,5 +57,9 @@ public class PostController {
     public ResponseEntity<Optional<Post>>findById(@PathVariable Long id) {
         return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
     }
+
+
+
+
 
 }
