@@ -16,8 +16,7 @@ public class Post_LabelServiceImpl implements Post_LabelService {
     @Autowired
     private Post_LabelRps post_LabelRps;
 
-    @Override
-    public Page<Post_Label> findAll(Pageable pageable) {
+    public Iterable<Post_Label> findAll(Pageable pageable) {
         return post_LabelRps.findAll(pageable);
     }
 
