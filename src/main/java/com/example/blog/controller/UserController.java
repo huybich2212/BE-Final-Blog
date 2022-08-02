@@ -91,8 +91,8 @@ public class UserController {
             roles1.add(role1);
             user.setRoles(roles1);
         }
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -132,6 +132,7 @@ public class UserController {
         user.setEnabled(userOptional.get().isEnabled());
         user.setPassword(userOptional.get().getPassword());
         user.setRoles(userOptional.get().getRoles());
+        user.setConfirmPassword(userOptional.get().getConfirmPassword());
 
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
