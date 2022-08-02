@@ -162,4 +162,21 @@ public class UserController {
         return new ResponseEntity<Object>(
                 apiError, new HttpHeaders(), apiError.getStatus());
     }
+
+    //change password by user id
+    @PutMapping("/users/{id}/change-password")
+    public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestBody User user) {
+        Optional<User> userOptional = this.userService.findById(id);
+        if (!userOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (!userService.isCorrectConfirmPassword(user)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userOptional.get().setPassword(passwordEncoder.encode(user.getPassword()));
+        userOptional.get().setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
+        userService.save(userOptional.get());
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 }
