@@ -28,4 +28,18 @@ public class PostLabelController {
         Iterable<Post_Label> post_Labels = post_LabelService.findAllByLabelId(labelId);
         return new ResponseEntity<>(post_Labels, HttpStatus.OK);
     }
+
+    //create post-label
+    @PostMapping("")
+    public ResponseEntity<Post_Label> creatPostLabel(@RequestBody Post_Label post_Label) {
+        Post_Label post_Label1 = post_LabelService.save(post_Label);
+        return new ResponseEntity<>(post_Label1, HttpStatus.CREATED);
+    }
+
+    //delete post-label by post id and label id
+    @DeleteMapping("")
+    public ResponseEntity<Post_Label> deleteByPostIdAndLabelId(@RequestParam Long postId, @RequestParam Long labelId) {
+        post_LabelService.removeByPostId(postId, labelId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

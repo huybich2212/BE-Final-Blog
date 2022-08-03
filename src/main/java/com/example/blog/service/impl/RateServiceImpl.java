@@ -1,10 +1,10 @@
 package com.example.blog.service.impl;
 
+import com.example.blog.model.Post_Label;
 import com.example.blog.model.Rate;
 import com.example.blog.repository.RateRepository;
 import com.example.blog.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +32,9 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public void save(Rate rate) {
+    public Post_Label save(Rate rate) {
         rateRepository.save(rate);
+        return null;
     }
 
     @Override

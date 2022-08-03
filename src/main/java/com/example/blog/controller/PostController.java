@@ -85,6 +85,13 @@ public class PostController {
         return new ResponseEntity<>(post,HttpStatus.CREATED);
     }
 
+    //find post with number of like
+    @GetMapping("/like")
+    public ResponseEntity<Iterable<Post>> findAllByLike() {
+        Iterable<Post> posts = postService.findByNumberOfLike();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
     //delete post by id and user id
 //    @DeleteMapping("/{id}/{userId}")
 //    public ResponseEntity<Post>deleteByIdAndUserId(@PathVariable Long id, @PathVariable Long userId) {

@@ -1,11 +1,10 @@
 package com.example.blog.service.impl;
 
 import com.example.blog.model.Post;
+import com.example.blog.model.Post_Label;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,7 +16,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Iterable<Post> findAll() {
-        return postRepository.findAll();
+        return postRepository.findAllOrderByCreateAtDesc();
     }
 
     @Override
@@ -28,14 +27,16 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public void save(Post post) {
+    public Post_Label save(Post post) {
         postRepository.save(post);
+        return null;
     }
 
     @Override
     public void remove(Long id) {
         postRepository.deleteById(id);
     }
+
 
     @Override
     public Iterable<Post> findAllById(Long id) {
@@ -77,6 +78,9 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllByContentContaining(content);
     }
 
-
+    //find post with number of like
+    public Iterable<Post> findByNumberOfLike() {
+        return postRepository.findAllByNumberOfLikesDesc();
+    }
 }
 

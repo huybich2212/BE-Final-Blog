@@ -1,6 +1,7 @@
 package com.example.blog.service.impl;
 
 import com.example.blog.model.Likes;
+import com.example.blog.model.Post_Label;
 import com.example.blog.repository.LikesRepository;
 import com.example.blog.service.LikesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public void save(Likes likes) {
+    public Post_Label save(Likes likes) {
         likesRepository.save(likes);
+        return null;
     }
 
     @Override

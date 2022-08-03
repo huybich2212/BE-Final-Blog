@@ -14,13 +14,13 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "DELETE FROM post WHERE id = :id AND user_id = :userId", nativeQuery = true)
     void deleteByIdAndUserId(@Param("id") Long id, @Param("userId") Long userId);
 
-    @Query(value = "SELECT * FROM post WHERE user_id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM post WHERE user_id = :id ORDER BY create_at DESC ", nativeQuery = true)
     Iterable<Post> findAllById(@Param("id") Long id);
 
     @Override
     Optional<Post> findById(Long id);
 
-    @Query(value = "SELECT * FROM post WHERE status = 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM post WHERE status = 1 ORDER BY create_at DESC ", nativeQuery = true)
     Iterable<Post> findAllByStatus();
 
     //find all post by name containing and user id
@@ -47,7 +47,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Iterable<Post> findAllByContentContaining(String content);
 
+    //find post with number of likes desc limit 5
+    @Query(value = "SELECT * FROM post WHERE status = 1 ORDER BY number_of_like DESC LIMIT 5", nativeQuery = true)
+    Iterable<Post> findAllByNumberOfLikesDesc();
 
-
+    //find all order by create at desc
+    @Query(value = "SELECT * FROM post ORDER BY create_at DESC", nativeQuery = true)
+    Iterable<Post> findAllOrderByCreateAtDesc();
 }
 
