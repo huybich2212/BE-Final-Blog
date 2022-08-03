@@ -49,8 +49,7 @@ public class PostServiceImpl implements PostService {
 
 
     public Iterable<Post>findByTitleContaining(String title) {
-        System.out.println("content:  "+title);
-        return postRepository.findByTitleContaining(title);
+        return postRepository.findAllByTitleAndStatus(title);
     }
 
     //FIND ALL POST BY USER ID AND TITLE
@@ -61,6 +60,21 @@ public class PostServiceImpl implements PostService {
     //find all by label id and user id
     public Iterable<Post> findAllByLabelIdAndUserId(Long labelId,Long userId) {
         return postRepository.findAllByLabelIdAndUserId(labelId,userId);
+    }
+
+    //delete post by id and user id
+    public void deleteByIdAndUserId(Long id,Long userId) {
+        postRepository.deleteByIdAndUserId(id,userId);
+    }
+
+    //find post by title
+    public Iterable<Post> findByTitle(String title) {
+        return postRepository.findAllByTitleContaining(title);
+    }
+
+    //find post by content
+    public Iterable<Post> findByContent(String content) {
+        return postRepository.findAllByContentContaining(content);
     }
 
 

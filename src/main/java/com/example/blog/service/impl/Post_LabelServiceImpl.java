@@ -44,6 +44,9 @@ public class Post_LabelServiceImpl implements Post_LabelService {
         return post_LabelRepository.findAllByPostId(postId);
     }
 
-
+//find all post with label id
+    public Iterable<Post_Label> findAllByLabelId(Long labelId) {
+        return post_LabelRepository.findAllByLabelId(labelId);
+    }
 
 }

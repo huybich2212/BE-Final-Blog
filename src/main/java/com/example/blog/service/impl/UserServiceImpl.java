@@ -117,4 +117,9 @@ public class UserServiceImpl implements UserService {
         }
         return isCorrentConfirmPassword;
     }
+
+    //find user by username containing
+    public Iterable<User> findAllByUsernameContaining(String username) {
+        return userRepository.findAllByUsernameContaining(username);
+    }
 }

@@ -14,12 +14,18 @@ public class PostLabelController {
 
     @Autowired
     private Post_LabelServiceImpl post_LabelService;
+
     //find all post-label with post id
-    @GetMapping("/{postId}")
+    @GetMapping("/post/{postId}")
     public ResponseEntity<Iterable<Post_Label>> findAllByPostId(@PathVariable Long postId) {
         Iterable<Post_Label> post_Labels = post_LabelService.findAllByPostId(postId);
         return new ResponseEntity<>(post_Labels, HttpStatus.OK);
     }
 
-
+    //find all post with label id
+    @GetMapping("/label/{labelId}")
+    public ResponseEntity<Iterable<Post_Label>> findAllByLabelId(@PathVariable Long labelId) {
+        Iterable<Post_Label> post_Labels = post_LabelService.findAllByLabelId(labelId);
+        return new ResponseEntity<>(post_Labels, HttpStatus.OK);
+    }
 }
