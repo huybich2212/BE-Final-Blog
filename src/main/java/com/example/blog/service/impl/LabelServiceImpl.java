@@ -1,10 +1,10 @@
 package com.example.blog.service.impl;
 
 import com.example.blog.model.Label;
+import com.example.blog.model.Post_Label;
 import com.example.blog.repository.LabelRepository;
 import com.example.blog.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +31,9 @@ public class LabelServiceImpl implements LabelService {
     }
 
     @Override
-    public void save(Label label) {
+    public Post_Label save(Label label) {
         labelRepository.save(label);
+        return null;
     }
 
     @Override

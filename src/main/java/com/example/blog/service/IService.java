@@ -1,13 +1,12 @@
 package com.example.blog.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.blog.model.Post_Label;
 
 import java.util.Optional;
 
 public interface IService <T>{
     Optional<T> findById(Long id);
     Iterable<T> findAll();
-    void save(T t);
+    Post_Label save(T t);
     void remove(Long id);
 }

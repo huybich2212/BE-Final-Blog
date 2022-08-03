@@ -17,7 +17,6 @@ public class LabelController {
     @Autowired
     private LabelServiceImpl labelService;
 
-
     // get all labels
 
     @GetMapping("")
@@ -51,7 +50,4 @@ public class LabelController {
         labelService.save(label);
         return new ResponseEntity<>(label,HttpStatus.CREATED);
     }
-
-
-
 }

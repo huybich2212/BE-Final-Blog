@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
 @Service
 
 public class Post_LabelServiceImpl implements Post_LabelService {
@@ -30,8 +31,9 @@ public class Post_LabelServiceImpl implements Post_LabelService {
     }
 
     @Override
-    public void save(Post_Label post_label) {
+    public Post_Label save(Post_Label post_label) {
         post_LabelRepository.save(post_label);
+        return post_label;
     }
 
     @Override
@@ -42,6 +44,16 @@ public class Post_LabelServiceImpl implements Post_LabelService {
     //find all by post id
     public Iterable<Post_Label> findAllByPostId(Long postId) {
         return post_LabelRepository.findAllByPostId(postId);
+    }
+
+    //find all post with label id
+    public Iterable<Post_Label> findAllByLabelId(Long labelId) {
+        return post_LabelRepository.findAllByLabelId(labelId);
+    }
+
+    //remove post-label
+    public void removeByPostId(Long postId, Long labelId) {
+        post_LabelRepository.deleteByPostIdAndLabelId(postId, labelId);
     }
 
 }

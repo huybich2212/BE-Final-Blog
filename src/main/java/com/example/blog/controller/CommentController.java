@@ -2,6 +2,7 @@ package com.example.blog.controller;
 
 import com.example.blog.model.Comment;
 import com.example.blog.service.CommentService;
+import com.example.blog.service.impl.CommentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,25 +15,25 @@ import java.util.Optional;
 @RequestMapping("/api/comments")
 public class CommentController {
     @Autowired
-    private CommentService commentService;
+    private CommentServiceImpl commentService;
 
     // get all comments
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<Iterable<Comment>> showAllComment() {
         Iterable<Comment> comments = commentService.findAll();
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
     // new comment
-    @PostMapping("/add")
+    @PostMapping("")
     public ResponseEntity<Comment>createComment(@RequestBody Comment comment){
         commentService.save(comment);
         return new ResponseEntity<>(comment, HttpStatus.CREATED);
     }
 
     //update comment
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Comment>updateCmt(@PathVariable Long id,@RequestBody Comment comment) {
         Optional<Comment> comment1 = commentService.findById(id);
         if (!comment1.isPresent()) {
@@ -44,9 +45,19 @@ public class CommentController {
     }
 
     //delete comment
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Comment> deleteCmt(@PathVariable Long id) {
         commentService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    //FIND ALL COMMENT BY POST ID
+
+    @GetMapping("/post/{id}")
+    public ResponseEntity<Iterable<Comment>> findAllByPostId(@PathVariable Long id) {
+        Iterable<Comment> comments = commentService.findAllByPostId(id);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
+
+
 }

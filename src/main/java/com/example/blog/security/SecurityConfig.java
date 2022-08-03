@@ -1,7 +1,6 @@
 package com.example.blog.security;
 
 
-
 import com.example.blog.security.jwt.CustomAccessDeniedHandler;
 import com.example.blog.security.jwt.JwtAuthenticationFilter;
 import com.example.blog.security.jwt.RestAuthenticationEntryPoint;
@@ -73,9 +72,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/login", "/register","/api/posts/**").permitAll()
-                .antMatchers("/users/**").access("hasRole('ROLE_USER')")
-                .antMatchers("/admin/**","/api/posts/delete/{id}").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/login", "/register","/api/posts").permitAll()
+                .antMatchers("/users/**", "/api/comments/**", "/api/labels/**", "/api/posts/**", "/api/post-labels/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/admin/**", "/api/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));

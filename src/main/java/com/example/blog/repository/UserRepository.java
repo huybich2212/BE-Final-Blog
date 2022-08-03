@@ -11,4 +11,9 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
 
+//find user by username containing
+    Iterable<User> findAllByUsernameContaining(String username);
+
+
+
 }
