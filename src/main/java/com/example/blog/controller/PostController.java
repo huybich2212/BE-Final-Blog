@@ -1,5 +1,6 @@
 package com.example.blog.controller;
 
+import com.example.blog.model.Comment;
 import com.example.blog.model.Post;
 import com.example.blog.service.PostService;
 import com.example.blog.service.impl.PostServiceImpl;
@@ -93,16 +94,11 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    //delete post by id and user id
-//    @DeleteMapping("/{id}/{userId}")
-//    public ResponseEntity<Post>deleteByIdAndUserId(@PathVariable Long id, @PathVariable Long userId) {
-//        Optional<Post> post = postService.findById(id);
-//        if (!post.isPresent()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        postService.deleteByIdAndUserId(id,userId);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Post> deletePost(@PathVariable Long id) {
+        postService.remove(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     //find all post by user id and status public
     @GetMapping("/public/user/{id}")
