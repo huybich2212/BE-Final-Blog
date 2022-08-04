@@ -44,8 +44,8 @@ public class GuestController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<Iterable<User>> findAllUser() {
-        Iterable<User> users = userService.findAll();
+    public ResponseEntity<Iterable<String>> findAllUser() {
+        Iterable<String> users = userService.listUserName();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }
