@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -102,6 +103,13 @@ public class PostController {
 //        postService.deleteByIdAndUserId(id,userId);
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
+
+    //find all post by user id and status public
+    @GetMapping("/public/user/{id}")
+    public ResponseEntity<Iterable<Post>> findAllByUserIdAndStatusPublic(@PathVariable(value = "id") Long id) {
+        Iterable<Post> posts = postService.findPostStatusAndAllOfUser(id);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
 
 
 }

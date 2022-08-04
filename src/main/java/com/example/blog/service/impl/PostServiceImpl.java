@@ -7,6 +7,7 @@ import com.example.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 @Service
 public class PostServiceImpl implements PostService {
@@ -82,5 +83,9 @@ public class PostServiceImpl implements PostService {
     public Iterable<Post> findByNumberOfLike() {
         return postRepository.findAllByNumberOfLikesDesc();
     }
+
+    public Iterable<Post> findPostStatusAndAllOfUser(Long userId) {
+          return postRepository.findAllPostCustom(userId);
+        }
 }
 

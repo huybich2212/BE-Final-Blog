@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
@@ -16,6 +17,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query(value = "SELECT * FROM post WHERE user_id = :id ORDER BY create_at DESC ", nativeQuery = true)
     Iterable<Post> findAllById(@Param("id") Long id);
+    @Query(value = "SELECT * FROM post\n" +
+            "WHERE status = 1 OR (status =0 AND user_id LIKE :id) ORDER BY create_at DESC ", nativeQuery = true)
+    Iterable<Post> findAllPostCustom(@Param("id") Long id);
 
     @Override
     Optional<Post> findById(Long id);
@@ -54,5 +58,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     //find all order by create at desc
     @Query(value = "SELECT * FROM post ORDER BY create_at DESC", nativeQuery = true)
     Iterable<Post> findAllOrderByCreateAtDesc();
+
+
 }
 
