@@ -2,6 +2,7 @@ package com.example.blog.controller;
 
 import com.example.blog.model.Label;
 import com.example.blog.service.impl.LabelServiceImpl;
+import com.example.blog.service.impl.Post_LabelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
