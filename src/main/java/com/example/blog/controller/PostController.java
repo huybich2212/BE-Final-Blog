@@ -2,7 +2,9 @@ package com.example.blog.controller;
 
 import com.example.blog.model.Post;
 import com.example.blog.service.PostService;
+import com.example.blog.service.Post_LabelService;
 import com.example.blog.service.impl.PostServiceImpl;
+import com.example.blog.service.impl.Post_LabelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -21,6 +24,9 @@ public class PostController {
 
     @Autowired
     private PostServiceImpl postService;
+
+    @Autowired
+    private Post_LabelServiceImpl post_LabelService;
 
     // find all post by status public
     @GetMapping("")
@@ -102,6 +108,13 @@ public class PostController {
 //        postService.deleteByIdAndUserId(id,userId);
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
+
+    //find all post by user id and status public
+    @GetMapping("/public/user/{id}")
+    public ResponseEntity<Iterable<Post>> findAllByUserIdAndStatusPublic(@PathVariable(value = "id") Long id) {
+        Iterable<Post> posts = postService.findPostStatusAndAllOfUser(id);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
 
 
 }
