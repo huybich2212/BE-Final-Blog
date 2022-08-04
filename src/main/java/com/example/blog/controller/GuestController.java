@@ -29,4 +29,12 @@ public class GuestController {
     public ResponseEntity<Optional<Post>>findById(@PathVariable Long id) {
         return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
     }
+
+    //find post by title and status public
+
+    @GetMapping("/title")
+    public ResponseEntity<Iterable<Post>>findAllByTitle(@RequestParam String title) {
+        Iterable<Post> posts = postService.findByTitleContaining(title);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
 }
