@@ -16,5 +16,7 @@ public interface Post_LabelRepository extends JpaRepository<Post_Label, Long> {
     //delete post-label by post id and label id
     @Query(value = "delete from Post_Label p where p.postId = :postId and p.labelId = :labelId", nativeQuery = true)
     void deleteByPostIdAndLabelId(@Param("postId") Long postId, @Param("labelId") Long labelId);
+
+
 }
 
