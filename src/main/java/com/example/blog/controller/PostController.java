@@ -83,4 +83,16 @@ public class PostController {
         Iterable<Post> posts = postService.findAllByLabelIdAndUserId(id,userId);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post post) {
+        Optional<Post> postOptional = postService.findById(id);
+        if (!postOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        post.setId(postOptional.get().getId());
+        postService.save(post);
+        return new ResponseEntity<>(post, HttpStatus.OK);
+
+    }
+
 }

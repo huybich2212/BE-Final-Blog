@@ -136,12 +136,17 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         user.setId(userOptional.get().getId());
-        user.setUsername(userOptional.get().getUsername());
-        user.setEnabled(userOptional.get().isEnabled());
-        user.setPassword(userOptional.get().getPassword());
-        user.setRoles(userOptional.get().getRoles());
-        user.setConfirmPassword(userOptional.get().getConfirmPassword());
-
+//        user.setUsername(userOptional.get().getUsername());
+//        user.setEnabled(userOptional.get().isEnabled());
+//        user.setPassword(userOptional.get().getPassword());
+//        user.setRoles(userOptional.get().getRoles());
+//        user.setConfirmPassword(userOptional.get().getConfirmPassword());
+//        user.setAction(userOptional.get().getAction());
+//        user.setAddress(userOptional.get().getAddress());
+//        user.setAvatar(userOptional.get().getAvatar());
+//        user.setEmail(userOptional.get().getEmail());
+//        user.setNumberPhone(userOptional.get().getNumberPhone());
+//        user.setFullName(userOptional.get().getFullName());
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
