@@ -1,7 +1,9 @@
 package com.example.blog.controller;
 
 import com.example.blog.model.Comment;
+import com.example.blog.model.Likes;
 import com.example.blog.model.Post;
+import com.example.blog.service.LikesService;
 import com.example.blog.service.PostService;
 import com.example.blog.service.impl.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import java.util.Optional;
 @CrossOrigin("*")
 @RequestMapping("/api/posts")
 public class PostController {
+    @Autowired
+    private LikesService likesService;
 
     @Autowired
     private PostServiceImpl postService;
@@ -106,6 +110,39 @@ public class PostController {
         Iterable<Post> posts = postService.findPostStatusAndAllOfUser(id);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
+    @PutMapping("/update-like-by-post-id/{id}")
+    public ResponseEntity<Post>updateLike(@PathVariable Long id,@RequestBody Post post ,  Likes like) {
+        Optional<Post> post12 = postService.findById(id);
+        if (!post12.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        post.setId(post12.get().getId());
+        post.setNumberOfLike(postService.countLikes(id));
+        postService.save(post);
+        return new ResponseEntity<>(post,HttpStatus.CREATED);
+    }
 
+//    @PostMapping("/like-post-by-postId/{id}")
+//    public ResponseEntity<Likes> createLikes(@RequestBody Likes like , Post post) {
+//        LocalDateTime now = LocalDateTime.now();
+//        like.setDateTime(now);
+//        post.setNumberOfLike(post.getNumberOfLike()+1);
+//        likesService.save(like);
+//        return new ResponseEntity<>(like, HttpStatus.CREATED);
+//    }
+//
+//    @DeleteMapping("/unlike-from-postId{id}")
+//    public ResponseEntity<Likes> unlike(@PathVariable Long id, Post post) {
+//        likesService.remove(id);
+//        post.setNumberOfLike(post.getNumberOfLike()-1);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 }
+
+
+
+
+
+
+

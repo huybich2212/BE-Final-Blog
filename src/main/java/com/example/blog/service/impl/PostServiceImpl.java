@@ -2,15 +2,19 @@ package com.example.blog.service.impl;
 
 import com.example.blog.model.Post;
 import com.example.blog.model.Post_Label;
+import com.example.blog.repository.LikesRepository;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.Like;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
 @Service
 public class PostServiceImpl implements PostService {
+    @Autowired
+    private LikesRepository likesRepository;
 
     @Autowired
     private PostRepository postRepository;
@@ -84,8 +88,15 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllByNumberOfLikesDesc();
     }
 
+    public int countLikes(Long post_id){
+        return likesRepository.countLike(post_id);
+    }
+
     public Iterable<Post> findPostStatusAndAllOfUser(Long userId) {
-          return postRepository.findAllPostCustom(userId);
-        }
+        return postRepository.findAllPostCustom(userId);
+    }
+
+
+
 }
 

@@ -18,6 +18,7 @@ public class Likes {
 
     private LocalDateTime dateTime;
 
+
     public Likes() {
     }
 
@@ -59,4 +60,5 @@ public class Likes {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
 }
