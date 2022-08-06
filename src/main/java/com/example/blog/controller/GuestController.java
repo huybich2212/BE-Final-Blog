@@ -28,11 +28,17 @@ public class GuestController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-
     // get post by id
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Post>>findById(@PathVariable Long id) {
         return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
+    }
+
+    //find post with number of like
+    @GetMapping("/like")
+    public ResponseEntity<Iterable<Post>> findAllByLike() {
+        Iterable<Post> posts = postService.findByNumberOfLike();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     //find post by title and status public

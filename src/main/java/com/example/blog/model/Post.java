@@ -28,8 +28,6 @@ public class Post {
     private int numberOfLike;
 
 
-
-
     public Post() {
     }
 
@@ -117,6 +115,5 @@ public class Post {
     public void setNumberOfLike(int numberOfLike) {
         this.numberOfLike = numberOfLike;
     }
-
 
 }

@@ -51,12 +51,6 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    // get post by id
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<Post>>findById(@PathVariable Long id) {
-        return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
-    }
-
     //find post by title and status public
     @GetMapping("/title")
     public ResponseEntity<Iterable<Post>>findAllByTitle(@RequestParam String title) {
@@ -91,13 +85,6 @@ public class PostController {
         return new ResponseEntity<>(post,HttpStatus.CREATED);
     }
 
-    //find post with number of like
-    @GetMapping("/like")
-    public ResponseEntity<Iterable<Post>> findAllByLike() {
-        Iterable<Post> posts = postService.findByNumberOfLike();
-        return new ResponseEntity<>(posts, HttpStatus.OK);
-    }
-
     //delete post by id and user id
 //    @DeleteMapping("/{id}/{userId}")
 //    public ResponseEntity<Post>deleteByIdAndUserId(@PathVariable Long id, @PathVariable Long userId) {
@@ -108,6 +95,13 @@ public class PostController {
 //        postService.deleteByIdAndUserId(id,userId);
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Post> delete(@PathVariable Long id){
+        postService.remove(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     //find all post by user id and status public
     @GetMapping("/public/user/{id}")
