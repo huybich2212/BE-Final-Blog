@@ -16,12 +16,14 @@ import java.util.Optional;
 public class LabelController {
     @Autowired
     private LabelServiceImpl labelService;
+    @Autowired
+    private Post_LabelServiceImpl post_LabelService;
 
     // get all labels
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Label>> showAllLabel() {
-        Iterable<Label> labels = labelService.findAll();
+    public ResponseEntity<Iterable<String>> showAllLabel() {
+        Iterable<String> labels = post_LabelService.getListLabelAndNumberPost();
         return new ResponseEntity<>(labels, HttpStatus.OK);
     }
 

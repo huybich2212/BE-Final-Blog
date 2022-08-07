@@ -1,6 +1,7 @@
 package com.example.blog.controller;
 
 import com.example.blog.model.Post;
+import com.example.blog.model.Post_Label;
 import com.example.blog.service.PostService;
 import com.example.blog.service.Post_LabelService;
 import com.example.blog.service.impl.PostServiceImpl;
@@ -41,6 +42,14 @@ public class PostController {
         LocalDateTime now = LocalDateTime.now();
         post.setCreateAt(now);
         postService.save(post);
+
+        //tạo post-label theo post id
+//        Post_Label post_Label = {
+//            post.getId(),
+//            post.getLabelId()
+//        };
+//        post_LabelService.save(post_Label);
+
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
 
