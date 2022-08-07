@@ -47,23 +47,43 @@ public class LikeController {
         return true;
     }
 
-    @PostMapping("/like}")
-    public ResponseEntity<Likes> Like(@RequestParam Long postId,@RequestParam Long userId) {
+    @PostMapping("")
+    public ResponseEntity<Post> Like(@RequestParam Long postId,@RequestParam Long userId) {
         Likes likes = new Likes();
         Post post = postService.findById(postId).get();
         User user = userService.findById(userId).get();
         Likes likedUserPost = likesService.findLikeByUserIdAndPostId(user.getId(), post.getId());
         if (checkLike(user, post, likesService.findAll())) {
-            if (likedUserPost==null){
+            if (likedUserPost == null) {
                 likes.setUser(user);
                 likes.setPost(post);
-                likesService.save(likedUserPost);
-            }else {
+                LocalDateTime now = LocalDateTime.now();
+                likes.setDateTime(now);
+                likesService.save(likes);
+                int newLikes = post.getNumberOfLike();
+                post.setNumberOfLike(newLikes + 1);
+                postService.save(post);
+            } else {
                 likesService.remove(likedUserPost.getId());
+                int oldLikes = post.getNumberOfLike();
+                post.setNumberOfLike(oldLikes - 1);
+                postService.save(post);
             }
         }
-        return new ResponseEntity<>(likedUserPost, HttpStatus.OK);
+        return new ResponseEntity<>(post, HttpStatus.OK);
     }
+//    @PostMapping("")
+//    public ResponseEntity<Post> like(@RequestParam Long postId,@RequestParam Long userId) {
+//        Likes likes = new Likes();
+//        Post post = postService.findById(postId).get();
+//        User user = userService.findById(userId).get();
+//        Likes likedUserPost = likesService.findLikeByUserIdAndPostId(user.getId(), post.getId());
+//        likes.setUser(user);
+//        likes.setPost(post);
+//        likesService.save(likedUserPost);
+//        return new ResponseEntity<>(post, HttpStatus.OK);
+//    }
+
 }
 
 //    @PostMapping("")
