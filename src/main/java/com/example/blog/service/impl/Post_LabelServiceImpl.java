@@ -55,5 +55,9 @@ public class Post_LabelServiceImpl implements Post_LabelService {
     public void removeByPostId(Long postId, Long labelId) {
         post_LabelRepository.deleteByPostIdAndLabelId(postId, labelId);
     }
+    //get list label and post per label
+    public Iterable<String> getListLabelAndNumberPost() {
+        return post_LabelRepository.getListLabelAndNumberOfPostPerLabel();
+    }
 
 }
