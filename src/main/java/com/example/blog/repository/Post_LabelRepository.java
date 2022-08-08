@@ -13,12 +13,16 @@ public interface Post_LabelRepository extends JpaRepository<Post_Label, Long> {
     //find all post with label id
     Iterable<Post_Label> findAllByLabelId(@PathVariable Long labelId);
 
-//    Integer<Post_Label>countPostByLaBel(@PathVariable Long LabelId);
+    //delete post-label by post id and label id
     @Query(value = "delete from Post_Label p where p.postId = :postId and p.labelId = :labelId", nativeQuery = true)
     void deleteByPostIdAndLabelId(@Param("postId") Long postId, @Param("labelId") Long labelId);
 
-    @Query(value = "select COUNT(*) from Post_Lable p where p.label_id = :labelId", nativeQuery = true)
-    int countPostByLaBel(@Param("labelId") Long labelId);
+    //get list label and number of post with label id
+    @Query(value = "select p.label_id, l.name, count(p.post_id) as numberOfPost " +
+            "from post_lable p " +
+            "join label l on l.id = p.label_id " +
+            " group by p.label_id", nativeQuery = true)
+    Iterable<String> getListLabelAndNumberOfPostPerLabel();
 
 }
 

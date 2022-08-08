@@ -3,9 +3,10 @@ package com.example.blog.controller;
 import com.example.blog.model.Comment;
 import com.example.blog.model.Likes;
 import com.example.blog.model.Post;
-import com.example.blog.service.LikesService;
 import com.example.blog.service.PostService;
+import com.example.blog.service.Post_LabelService;
 import com.example.blog.service.impl.PostServiceImpl;
+import com.example.blog.service.impl.Post_LabelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,9 @@ public class PostController {
     @Autowired
     private PostServiceImpl postService;
 
+    @Autowired
+    private Post_LabelServiceImpl post_LabelService;
+
     // find all post by status public
     @GetMapping("")
     public ResponseEntity<Iterable<Post>> showAllPost() {
@@ -41,6 +45,14 @@ public class PostController {
         LocalDateTime now = LocalDateTime.now();
         post.setCreateAt(now);
         postService.save(post);
+
+        //tạo post-label theo post id
+//        Post_Label post_Label = {
+//            post.getId(),
+//            post.getLabelId()
+//        };
+//        post_LabelService.save(post_Label);
+
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
 
