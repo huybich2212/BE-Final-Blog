@@ -7,6 +7,7 @@ import com.example.blog.model.User;
 import com.example.blog.service.RoleService;
 import com.example.blog.service.UserService;
 import com.example.blog.service.impl.JwtService;
+import com.example.blog.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -45,14 +46,13 @@ public class UserController {
     private JwtService jwtService;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private RoleService roleService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     //get all users
     @GetMapping("/users")
@@ -116,6 +116,23 @@ public class UserController {
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), currentUser.getFullName(), currentUser.getAvatar(), userDetails.getAuthorities()));
     }
 
+//    //change password
+    @PutMapping("/users/change-password/{id}")
+    public ResponseEntity<?> changePassword(@PathVariable Long id, @RequestParam String oldPassword, @RequestBody User user) {
+        User currentUser = userService.findById(id).get();
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(currentUser.getUsername(), oldPassword));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtService.generateTokenLogin(authentication);
+        if (jwt != null && userService.isCorrectConfirmPassword(user)) {
+            currentUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            currentUser.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
+            userService.save(currentUser);
+            return new ResponseEntity<>(currentUser, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     @GetMapping("/hello")
     public ResponseEntity<String> hello() {
         return new ResponseEntity("Hello World", HttpStatus.OK);
@@ -165,19 +182,20 @@ public class UserController {
     }
 
     //change password by user id
-    @PutMapping("/users/{id}/change-password")
-    public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestBody User user) {
-        Optional<User> userOptional = this.userService.findById(id);
-        if (!userOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        if (!userService.isCorrectConfirmPassword(user)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        userOptional.get().setPassword(passwordEncoder.encode(user.getPassword()));
-        userOptional.get().setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
-        userService.save(userOptional.get());
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
+    //sửa chỗ này nha thầy
+//    @PutMapping("/users/change-password/{id}")
+//    public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestBody User user) {
+//        Optional<User> userOptional = this.userService.findById(id);
+//        if (!userOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//
+//        if (!userService.isCorrectConfirmPassword(user)) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        userOptional.get().setPassword(passwordEncoder.encode(user.getPassword()));
+//        userOptional.get().setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
+//        userService.save(userOptional.get());
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
 }

@@ -131,8 +131,17 @@ public class UserServiceImpl implements UserService {
         return isCorrentConfirmPassword;
     }
 
+//    public boolean checkConfirm(String password, String confirmPassword) {
+//        boolean isCorrentConfirmPassword = false;
+//        if(password.equals(confirmPassword)){
+//            isCorrentConfirmPassword = true;
+//        }
+//        return isCorrentConfirmPassword;
+//    }
+
     //find user by username containing
     public Iterable<User> findAllByUsernameContaining(String username) {
         return userRepository.findAllByUsernameContaining(username);
     }
+
 }

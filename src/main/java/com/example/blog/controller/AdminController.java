@@ -29,16 +29,23 @@ public class AdminController {
 
 
     // delete post by id
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Post> delete(@PathVariable Long id) {
-        Optional<Post> postOptional = postService.findById(id);
-        if (!postOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        postOptional.get().setStatus(0);
-        postService.remove(postOptional.get().getId());
-        return new ResponseEntity<>(postOptional.get(), HttpStatus.NO_CONTENT);
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Post> delete(@PathVariable Long id) {
+//        Optional<Post> postOptional = postService.findById(id);
+//        if (!postOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        postOptional.get().setStatus(0);
+//        postService.remove(postOptional.get().getId());
+//        return new ResponseEntity<>(postOptional.get(), HttpStatus.NO_CONTENT);
+//
+//    }
 
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Post> delete(@PathVariable Long id){
+        postService.remove(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //find all post by title

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @RestController
@@ -28,11 +30,13 @@ public class CommentController {
     // new comment
     @PostMapping("")
     public ResponseEntity<Comment>createComment(@RequestBody Comment comment){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        comment.setCreateAt(localDateTime);
         commentService.save(comment);
         return new ResponseEntity<>(comment, HttpStatus.CREATED);
     }
 
-    //update comment
+
     @PutMapping("/{id}")
     public ResponseEntity<Comment>updateCmt(@PathVariable Long id,@RequestBody Comment comment) {
         Optional<Comment> comment1 = commentService.findById(id);
@@ -52,6 +56,7 @@ public class CommentController {
     }
 
     //FIND ALL COMMENT BY POST ID
+    //chỗ này hiện cmt k cần phân quyền user
 
     @GetMapping("/post/{id}")
     public ResponseEntity<Iterable<Comment>> findAllByPostId(@PathVariable Long id) {

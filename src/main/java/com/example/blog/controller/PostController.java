@@ -30,11 +30,12 @@ public class PostController {
     private Post_LabelServiceImpl post_LabelService;
 
     // find all post by status public
-    @GetMapping("")
-    public ResponseEntity<Iterable<Post>> showAllPost() {
-        Iterable<Post> posts = postService.findAllByStatus();
-        return new ResponseEntity<>(posts,HttpStatus.OK);
-    }
+    // để bên guest
+//    @GetMapping("")
+//    public ResponseEntity<Iterable<Post>> showAllPost() {
+//        Iterable<Post> posts = postService.findAllByStatus();
+//        return new ResponseEntity<>(posts,HttpStatus.OK);
+//    }
 
     // new post
     @PostMapping("")
