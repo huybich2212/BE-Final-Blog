@@ -46,14 +46,23 @@ public class LikeController {
         }
         return true;
     }
+    @GetMapping ("")
+    public ResponseEntity<Likes>likedCheck(@RequestParam Long postId,@RequestParam Long userId){
+//        Likes likes = new Likes();
+        Post post = postService.findById(postId).get();
+        User user = userService.findById(userId).get();
+        Likes like = likesService.findLikeByUserIdAndPostId(user.getId(), post.getId());
+        return new ResponseEntity<>(like, HttpStatus.OK);
+    }
 
     @PostMapping("")
-    public ResponseEntity<Post> Like(@RequestParam Long postId,@RequestParam Long userId) {
-        Likes likes = new Likes();
+    public ResponseEntity<Likes> Like(@RequestParam Long postId,@RequestParam Long userId) {
+        Likes likes = null;
         Post post = postService.findById(postId).get();
         User user = userService.findById(userId).get();
         Likes likedUserPost = likesService.findLikeByUserIdAndPostId(user.getId(), post.getId());
         if (checkLike(user, post, likesService.findAll())) {
+             likes = new Likes();
             if (likedUserPost == null) {
                 likes.setUser(user);
                 likes.setPost(post);
@@ -70,7 +79,7 @@ public class LikeController {
                 postService.save(post);
             }
         }
-        return new ResponseEntity<>(post, HttpStatus.OK);
+        return new ResponseEntity<>(likes, HttpStatus.OK);
     }
 //    @PostMapping("")
 //    public ResponseEntity<Post> like(@RequestParam Long postId,@RequestParam Long userId) {

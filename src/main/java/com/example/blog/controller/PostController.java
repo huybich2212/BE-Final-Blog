@@ -3,6 +3,7 @@ package com.example.blog.controller;
 import com.example.blog.model.Comment;
 import com.example.blog.model.Likes;
 import com.example.blog.model.Post;
+import com.example.blog.service.LikesService;
 import com.example.blog.service.PostService;
 import com.example.blog.service.Post_LabelService;
 import com.example.blog.service.impl.PostServiceImpl;
