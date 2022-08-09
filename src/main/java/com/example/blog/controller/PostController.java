@@ -1,11 +1,10 @@
 package com.example.blog.controller;
 
-import com.example.blog.model.Comment;
-import com.example.blog.model.Likes;
-import com.example.blog.model.Post;
+import com.example.blog.model.*;
 import com.example.blog.service.LikesService;
 import com.example.blog.service.PostService;
 import com.example.blog.service.Post_LabelService;
+import com.example.blog.service.impl.LabelServiceImpl;
 import com.example.blog.service.impl.PostServiceImpl;
 import com.example.blog.service.impl.Post_LabelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,9 @@ public class PostController {
     @Autowired
     private Post_LabelServiceImpl post_LabelService;
 
+    @Autowired
+    private LabelServiceImpl labelService;
+
     // find all post by status public
     // để bên guest
 //    @GetMapping("")
@@ -47,14 +49,6 @@ public class PostController {
         LocalDateTime now = LocalDateTime.now();
         post.setCreateAt(now);
         postService.save(post);
-
-        //tạo post-label theo post id
-//        Post_Label post_Label = {
-//            post.getId(),
-//            post.getLabelId()
-//        };
-//        post_LabelService.save(post_Label);
-
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
 
@@ -73,7 +67,7 @@ public class PostController {
 
     //find post by title and status public
     @GetMapping("/title")
-    public ResponseEntity<Iterable<Post>>findAllByTitle(@RequestParam String title) {
+    public ResponseEntity<Iterable<Post>> findAllByTitle(@RequestParam String title) {
         Iterable<Post> posts = postService.findByTitleContaining(title);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
@@ -82,27 +76,27 @@ public class PostController {
     //FIND ALL POST BY USER ID AND TITLE
     @GetMapping("/find-by-title-of-user")
     public ResponseEntity<Iterable<Post>> findAllByUserIdAndTitle(@RequestParam(value = "userid") Long id, @RequestParam(value = "title") String title) {
-        Iterable<Post> posts = postService.findAllByUserIdAndTitle(title,id );
+        Iterable<Post> posts = postService.findAllByUserIdAndTitle(title, id);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     //find all post with label id and user id
     @GetMapping("/label/{id}/user/{userId}")
     public ResponseEntity<Iterable<Post>> findAllByLabelIdAndUserId(@PathVariable(value = "id") Long id, @PathVariable(value = "userId") Long userId) {
-        Iterable<Post> posts = postService.findAllByLabelIdAndUserId(id,userId);
+        Iterable<Post> posts = postService.findAllByLabelIdAndUserId(id, userId);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Post>editPost(@PathVariable Long id,@RequestBody Post post) {
+    public ResponseEntity<Post> editPost(@PathVariable Long id, @RequestBody Post post) {
         Optional<Post> post1 = postService.findById(id);
         if (!post1.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         post.setId(post1.get().getId());
         postService.save(post);
-        return new ResponseEntity<>(post,HttpStatus.CREATED);
+        return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
 
     //find post with number of like
@@ -125,7 +119,7 @@ public class PostController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Post> delete(@PathVariable Long id){
+    public ResponseEntity<Post> delete(@PathVariable Long id) {
         postService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -136,8 +130,9 @@ public class PostController {
         Iterable<Post> posts = postService.findPostStatusAndAllOfUser(id);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
+
     @PutMapping("/update-like-by-post-id/{id}")
-    public ResponseEntity<Post>updateLike(@PathVariable Long id,@RequestBody Post post ,  Likes like) {
+    public ResponseEntity<Post> updateLike(@PathVariable Long id, @RequestBody Post post, Likes like) {
         Optional<Post> post12 = postService.findById(id);
         if (!post12.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -145,7 +140,7 @@ public class PostController {
         post.setId(post12.get().getId());
         post.setNumberOfLike(postService.countLikes(id));
         postService.save(post);
-        return new ResponseEntity<>(post,HttpStatus.CREATED);
+        return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
 
 //    @PostMapping("/like-post-by-postId/{id}")
@@ -164,5 +159,13 @@ public class PostController {
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
 
-
+    @RequestMapping("send-list-label/{id}")
+    public void listLabel(@RequestBody String[] listLabel , @PathVariable Long id) {
+        for (int i = 0; i < listLabel.length; i++) {
+            Post_Label post_Label = new Post_Label();
+            post_Label.setPost(postService.findById(id).get());
+            post_Label.setLabel(labelService.findById(Long.parseLong(listLabel[i])).get());
+            post_LabelService.save(post_Label);
+        }
+    }
 }

@@ -63,7 +63,4 @@ public class CommentController {
         Iterable<Comment> comments = commentService.findAllByPostId(id);
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
-
-
-
 }
