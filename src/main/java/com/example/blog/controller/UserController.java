@@ -198,4 +198,19 @@ public class UserController {
 //        userService.save(userOptional.get());
 //        return new ResponseEntity<>(user, HttpStatus.OK);
 //    }
+
+    //check password with input password
+    @GetMapping("/users/check-password/{id}")
+    public ResponseEntity<User> checkPassword(@PathVariable Long id, @RequestParam String password) {
+        Optional<User> userOptional = this.userService.findById(id);
+        if (!userOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (!passwordEncoder.matches(password, userOptional.get().getPassword())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
+    }
+
+
 }
