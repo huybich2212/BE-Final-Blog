@@ -22,12 +22,7 @@ public class PostLabelController {
         return new ResponseEntity<>(post_Labels, HttpStatus.OK);
     }
 
-    //find all post with label id
-    @GetMapping("/label/{labelId}")
-    public ResponseEntity<Iterable<Post_Label>> findAllByLabelId(@PathVariable Long labelId) {
-        Iterable<Post_Label> post_Labels = post_LabelService.findAllByLabelId(labelId);
-        return new ResponseEntity<>(post_Labels, HttpStatus.OK);
-    }
+
 
     //create post-label
     @PostMapping("")

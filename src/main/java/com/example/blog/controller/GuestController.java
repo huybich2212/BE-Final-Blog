@@ -1,8 +1,10 @@
 package com.example.blog.controller;
 
 import com.example.blog.model.Post;
+import com.example.blog.model.Post_Label;
 import com.example.blog.model.User;
 import com.example.blog.service.impl.PostServiceImpl;
+import com.example.blog.service.impl.Post_LabelServiceImpl;
 import com.example.blog.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,10 @@ public class GuestController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private Post_LabelServiceImpl post_LabelService;
+
 
     // find all post by status public
     @GetMapping("")
@@ -53,6 +59,13 @@ public class GuestController {
     public ResponseEntity<Iterable<String>> findAllUser() {
         Iterable<String> users = userService.listUserName();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    //find all post with label id
+    @GetMapping("/label/{labelId}")
+    public ResponseEntity<Iterable<Post_Label>> findAllByLabelId(@PathVariable Long labelId) {
+        Iterable<Post_Label> post_Labels = post_LabelService.findAllByLabelId(labelId);
+        return new ResponseEntity<>(post_Labels, HttpStatus.OK);
     }
 
 
