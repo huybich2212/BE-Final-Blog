@@ -31,14 +31,5 @@ public class PostLabelController {
         return new ResponseEntity<>(post_Label1, HttpStatus.CREATED);
     }
 
-    //delete post-label by post id and label id
-    @DeleteMapping("")
-    public ResponseEntity<Post_Label> deleteByPostIdAndLabelId(@RequestParam Long postId, @RequestParam Long labelId) {
-        post_LabelService.removeByPostId(postId, labelId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-//    @GetMapping("/count-by-label-id")
-//    public ResponseEntity<Integer> countByLabelId(@RequestParam Long labelId){
-//        return new ResponseEntity<>(post_LabelService.countPostByLabelID(labelId), HttpStatus.OK);
-//    }
+
 }

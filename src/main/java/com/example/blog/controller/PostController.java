@@ -1,6 +1,7 @@
 package com.example.blog.controller;
 
 import com.example.blog.model.*;
+import com.example.blog.repository.Post_LabelRepository;
 import com.example.blog.service.LikesService;
 import com.example.blog.service.PostService;
 import com.example.blog.service.Post_LabelService;
@@ -34,6 +35,9 @@ public class PostController {
 
     @Autowired
     private LabelServiceImpl labelService;
+
+    @Autowired
+    private Post_LabelRepository post_labelRepository;
 
     // find all post by status public
     // để bên guest
@@ -120,6 +124,7 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Post> delete(@PathVariable Long id) {
+        post_LabelService.removeByPostId(id);
         postService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
