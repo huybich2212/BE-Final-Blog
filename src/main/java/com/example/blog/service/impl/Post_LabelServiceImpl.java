@@ -59,5 +59,8 @@ public class Post_LabelServiceImpl implements Post_LabelService {
     public Iterable<String> getListLabelAndNumberPost() {
         return post_LabelRepository.getListLabelAndNumberOfPostPerLabel();
     }
+    public Iterable<Post_Label>getPostLabelsByPostId(Long postId){
+        return post_LabelRepository.findPost_LabelByPostId(postId);
+    }
 
 }

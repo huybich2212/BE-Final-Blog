@@ -1,6 +1,7 @@
 package com.example.blog.repository;
 
 import com.example.blog.model.Post;
+import com.example.blog.model.Post_Label;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -50,6 +51,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Iterable<Post> findAllByTitleContaining(String title);
 
     Iterable<Post> findAllByContentContaining(String content);
+
 
     //find post with number of likes desc limit 5
     @Query(value = "SELECT * FROM post WHERE status = 1 ORDER BY number_of_like DESC LIMIT 5", nativeQuery = true)
