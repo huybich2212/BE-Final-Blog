@@ -47,7 +47,7 @@ public class LikeController {
         return true;
     }
     @GetMapping ("")
-    public ResponseEntity<Likes>likedCheck(@RequestParam Long postId,@RequestParam Long userId){
+    public ResponseEntity<Likes> likedCheck(@RequestParam Long postId,@RequestParam Long userId){
 //        Likes likes = new Likes();
         Post post = postService.findById(postId).get();
         User user = userService.findById(userId).get();
