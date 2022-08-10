@@ -13,7 +13,13 @@ public interface Post_LabelRepository extends JpaRepository<Post_Label, Long> {
     Iterable<Post_Label>findPost_LabelByPostId(Long postId);
 
     //find all post with label id
-    Iterable<Post_Label> findAllByLabelId(@PathVariable Long labelId);
+//    Iterable<Post_Label> findAllByLabelId(@PathVariable Long labelId);
+
+    @Query(value = "SELECT *\n" +
+            "FROM post_lable join post p on p.id = post_lable.post_id\n" +
+            "where label_id = :labelId \n" +
+            "order by create_at desc", nativeQuery = true)
+    Iterable<Post_Label> findAllByLabelId( @Param("labelId") Long labelId);
 
     //delete post-label by post id and label id
     @Query(value = "delete from Post_Label p where p.postId = :postId and p.labelId = :labelId", nativeQuery = true)
