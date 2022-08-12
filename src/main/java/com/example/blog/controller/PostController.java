@@ -67,7 +67,7 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    // get post by id
+//     get post by id
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Optional<Post>>findById(@PathVariable Long id) {
 //        return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
@@ -89,6 +89,7 @@ public class PostController {
     }
 
     //find all post with label id and user id
+    // có nên chuyển không thầy???
     @GetMapping("/label/{id}/user/{userId}")
     public ResponseEntity<Iterable<Post>> findAllByLabelIdAndUserId(@PathVariable(value = "id") Long id, @PathVariable(value = "userId") Long userId) {
         Iterable<Post> posts = postService.findAllByLabelIdAndUserId(id,userId);

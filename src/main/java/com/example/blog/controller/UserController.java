@@ -212,5 +212,4 @@ public class UserController {
         return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
     }
 
-
 }
